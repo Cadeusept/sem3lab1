@@ -33,6 +33,7 @@ hunter_add_package(nlohmann_json)
 find_package(nlohmann_json CONFIG REQUIRED)
 
 
+
 add_library(${PROJECT_NAME} STATIC
   # enum your files and delete this comment
         ${CMAKE_CURRENT_SOURCE_DIR}/sources/student.cpp
@@ -41,6 +42,8 @@ add_library(${PROJECT_NAME} STATIC
 add_executable(demo
   ${CMAKE_CURRENT_SOURCE_DIR}/demo/main.cpp
 )
+target_link_libraries(demo nlohmann_json::nlohmann_json)
+
 
 target_include_directories(${PROJECT_NAME} PUBLIC
   "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
@@ -48,8 +51,6 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 )
 
 target_link_libraries(demo ${PROJECT_NAME})
-
-target_link_libraries(demo nlohmann_json::nlohmann_json)
 
 if(BUILD_TESTS)
   add_executable(tests

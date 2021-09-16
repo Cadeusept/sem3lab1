@@ -1,4 +1,4 @@
-// Copyright 2020 Your Name <your_email>
+// Copyright 2021 Madyu <abobus1488822@yandex.ru>
 
 using nlohmann::json;
 
@@ -41,4 +41,4 @@ auto get_group(const json& j) -> std::any {
         return j.get<std::size_t>();
 }
 
-#include <header.hpp>
+#include <student.hpp>
