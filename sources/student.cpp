@@ -1,6 +1,5 @@
-// Copyright 2021 Madyu <abobus1488822@yandex.ru>
 
-using nlohmann::json;
+using json=nlohmann::json;
 
 void from_json(const json& j, student_t& s) {
 
@@ -41,4 +40,4 @@ auto get_group(const json& j) -> std::any {
         return j.get<std::size_t>();
 }
 
-#include <student.hpp>
+

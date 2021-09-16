@@ -42,6 +42,7 @@ add_library(${PROJECT_NAME} STATIC
 add_executable(demo
   ${CMAKE_CURRENT_SOURCE_DIR}/demo/main.cpp
 )
+
 target_link_libraries(demo nlohmann_json::nlohmann_json)
 
 
