@@ -5,6 +5,7 @@
 #include <student.hpp>
 #include <nlohmann/json.hpp>
 
+using json = nlohmann::json;
 
 struct student_t{
     std::string name;

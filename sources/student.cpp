@@ -1,7 +1,5 @@
 #include "student.hpp"
 
-using json = nlohmann::json;
-
 auto get_name(const json& j) -> std::string {
     return j.get<std::string>();
 }
