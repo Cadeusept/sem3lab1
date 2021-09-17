@@ -2,7 +2,6 @@
 #define INCLUDE_HEADER_HPP_
 #include <string>
 #include <any>
-#include <student.hpp>
 #include <nlohmann/json.hpp>
 
 using json = nlohmann::json;
@@ -13,5 +12,7 @@ struct Student{
     std::any avg;
     std::any debt;
 };
+
+#include <student.cpp>
 
 #endif // INCLUDE_HEADER_HPP_

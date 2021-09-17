@@ -31,8 +31,7 @@ auto get_group(const json& j) -> std::any {
         return j.get<std::size_t>();
 }
 
-void from_json(const json& j, student_t& s) {
-
+void from_json(const json& j, Student& s) {
     s.name = get_name(j.at("group"));
     s.group = get_group(j.at("group"));
     s.avg = get_avg(j.at("avg"));
