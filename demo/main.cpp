@@ -3,7 +3,8 @@
 #include <fstream>
 #include <iostream>
 
-void print(const student_t& student, std::ostream& os) {
+
+void print(const Student& student, std::ostream& os) {
     //сделать для остальных атрибутов student проверку
     if (student.debt.type() == typeid(std::nullptr_t)) {
         os << "null";
@@ -16,7 +17,7 @@ void print(const student_t& student, std::ostream& os) {
     }
 }
 
-void print(const std::vector<student_t>& students, std::ostream& os) {
+void print(const std::vector<Student>& students, std::ostream& os) {
 
     //елать таблицу вывода
     for (auto const& student : students) {
@@ -36,13 +37,15 @@ int main() {
     json data;
     file >> data;
 
-    std::vector<student_t> students;
+    std::vector<Student> students;
     for (auto const& item : data.at("items")) {
-        auto student = item.get<student_t>()
+        Student student;
+        from_json(item, student);
         students.push_back(student);
     }
     //нужно проверки сделатб
     print(students, std::cout);
+
 }
 
 

@@ -7,7 +7,7 @@
 
 using json = nlohmann::json;
 
-struct student_t{
+struct Student{
     std::string name;
     std::any group;
     std::any avg;
