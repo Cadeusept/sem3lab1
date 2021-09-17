@@ -1,13 +1,6 @@
+#include "student.hpp"
 
-using json=nlohmann::json;
-
-void from_json(const json& j, student_t& s) {
-
-    s.name = get_name(j.at("group"));
-    s.group = get_group(j.at("group"));
-    s.avg = get_avg(j.at("avg"));
-    s.debt = get_group(j.at("debt"));
-}
+using json = nlohmann::json;
 
 auto get_name(const json& j) -> std::string {
     return j.get<std::string>();
@@ -39,5 +32,14 @@ auto get_group(const json& j) -> std::any {
     else
         return j.get<std::size_t>();
 }
+
+void from_json(const json& j, student_t& s) {
+
+    s.name = get_name(j.at("group"));
+    s.group = get_group(j.at("group"));
+    s.avg = get_avg(j.at("avg"));
+    s.debt = get_group(j.at("debt"));
+}
+
 
 
