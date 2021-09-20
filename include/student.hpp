@@ -13,6 +13,15 @@ struct Student{
     std::any debt;
 };
 
-#include <student.cpp>
+auto get_name(const json& j) -> std::string;
+
+auto get_debt(const json& j) -> std::any;
+
+auto get_avg(const json& j) -> std::any;
+
+auto get_group(const json& j) -> std::any;
+
+void from_json(const json& j, Student& s);
+
 
 #endif // INCLUDE_HEADER_HPP_
