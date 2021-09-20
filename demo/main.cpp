@@ -6,20 +6,32 @@
 
 void print(const Student& student, std::ostream& os) {
     //сделать для остальных атрибутов student проверку
+    if (student.group.type()==typeid(std::string)){
+        os << std::any_cast<std::string>(student.group);
+    } else if (student.group.type()==typeid(std::nullptr_t)) {
+        os << "null";
+    } else {
+        os << std::any_cast<std::string>(student.group) << "group";
+    }
+
+    if (student.avg.type()!=typeid(std::nullptr_t)){
+        os << std::any_cast<std::string>(student.avg);
+    } else os << "no data";
+
     if (student.debt.type() == typeid(std::nullptr_t)) {
         os << "null";
     } else if (student.debt.type() == typeid(std::string)) {
         os << std::any_cast<std::string>(student.debt);
     } else {
         os
-          << std::any_cast<std::vector<std::string> >(student.debt).size()
+          << std::any_cast< std::vector<std::string> >(student.debt).size()
           << " items";
     }
 }
 
 void print(const std::vector<Student>& students, std::ostream& os) {
 
-    //елать таблицу вывода
+    //сделать таблицу вывода
     for (auto const& student : students) {
         print(student, os);
     }
