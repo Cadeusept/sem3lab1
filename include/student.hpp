@@ -3,6 +3,7 @@
 #include <string>
 #include <any>
 #include <nlohmann/json.hpp>
+#include <iomanip>
 
 using json = nlohmann::json;
 
@@ -23,7 +24,7 @@ auto get_group(const json& j) -> std::any;
 
 void from_json(const json& j, Student& s);
 
-void print(const Student& student, std::ostream& os);
+void print(const Student& student, std::ostream& os, unsigned max_name, unsigned max_group, unsigned max_avg, unsigned max_debt);
 
 void print(const std::vector<Student>& students, std::ostream& os);
 
