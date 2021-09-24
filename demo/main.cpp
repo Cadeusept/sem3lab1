@@ -4,7 +4,7 @@
 #include <iostream>
 
 int main() {
-    std::string jsonPath = "~/Рабочий стол/students.json";
+    std::string jsonPath = "/home/students.json";
 
 
     std::ifstream file{jsonPath};
