@@ -23,5 +23,8 @@ auto get_group(const json& j) -> std::any;
 
 void from_json(const json& j, Student& s);
 
+void print(const Student& student, std::ostream& os);
+
+void print(const std::vector<Student>& students, std::ostream& os);
 
 #endif // INCLUDE_HEADER_HPP_
