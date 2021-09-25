@@ -4,7 +4,7 @@
 #include <iostream>
 
 int main() {
-    std::string jsonPath = "RES_DIR/students.json";
+    std::string jsonPath = FILE_DIR;
 
 
     std::ifstream file{jsonPath};
@@ -21,7 +21,8 @@ int main() {
         from_json(item, student);
         students.push_back(student);
     }
-    //нужно проверки сделатб
+
+
     print(students, std::cout);
 
 }

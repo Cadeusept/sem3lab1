@@ -22,7 +22,7 @@ auto get_avg(const json& j) -> std::any {
     else if (j.is_string())
         return j.get<std::string>();
     else if (j.is_number_float())
-        return j.get<double>();
+        return j.get<std::double_t>();
     else
         return j.get<std::size_t>();
 }
