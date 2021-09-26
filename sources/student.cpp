@@ -44,7 +44,7 @@ void from_json(const json& j, Student& s) {
 }
 
 std::string get_str_from_name(std::string name){
-    if (name!="")
+    if (name.empty())
         return name;
     else
         return "null";
@@ -105,7 +105,8 @@ void print(const Student& student, std::ostream& os, unsigned max_name, unsigned
 void print(const std::vector<Student>& students, std::ostream& os) {
     unsigned max_name=0; unsigned max_group=0; unsigned max_avg=0; unsigned max_debt=0;
     for (auto const& student : students){
-        if (student.name.length()>max_name) max_name=student.name.length();
+        if (get_str_from_name(student.name).length()>max_name)
+            max_name=get_str_from_name(student.name).length();
         if (get_str_from_group(student.group).length()>max_group)
             max_group=get_str_from_group(student.group).length();
         if (get_str_from_avg(student.avg).length()>max_avg)
