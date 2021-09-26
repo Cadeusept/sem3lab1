@@ -44,7 +44,7 @@ void from_json(const json& j, Student& s) {
 }
 
 std::string get_str_from_name(std::string name){
-    if (name.empty())
+    if (!name.empty())
         return name;
     else
         return "null";
