@@ -43,46 +43,61 @@ void from_json(const json& j, Student& s) {
     s.debt = get_debt(j.at("debt"));
 }
 
+std::string get_str_from_name(std::string name){
+    if (name!="")
+        return name;
+    else
+        return "null";
+}
 
+std::string get_str_from_group(std::any group){
+    if (group.type()==typeid(std::nullptr_t))
+        return "null";
+    else if (group.type()==typeid(std::string))
+        return std::any_cast<std::string>(group);
+    else if (group.type()==typeid(std::size_t))
+        return std::to_string(std::any_cast<std::size_t>(group));
+    else
+        throw "Unexpected 'group' type";
+}
+
+std::string get_str_from_avg(std::any avg){
+    if (avg.type()==typeid(std::nullptr_t))
+        return "null";
+    else if (avg.type()==typeid(std::string))
+        return std::any_cast<std::string>(avg);
+    else if (avg.type()==typeid(std::double_t))
+        return std::to_string(std::any_cast<std::double_t>(avg));
+    else if (avg.type()==typeid(std::size_t))
+        return std::to_string(std::any_cast<std::size_t>(avg));
+    else
+        throw "Unexpected 'avg' type";
+}
+
+std::string get_str_from_debt(std::any debt){
+    if (debt.type()==typeid(std::nullptr_t))
+        return "null";
+    else if (debt.type()==typeid(std::string))
+        return std::any_cast<std::string>(debt);
+    else if (debt.type()==typeid(std::vector<std::string>))
+        return std::to_string(std::any_cast< std::vector<std::string> >(debt).size()) +" items";
+    else
+        throw "Unexpected 'debt' type";
+}
 
 void print(const Student& student, std::ostream& os, unsigned max_name, unsigned max_group, unsigned max_avg, unsigned max_debt) {
-    //сделать для остальных атрибутов student проверку
     os << "|" << std::left <<std::setw(max_name);
-    if (student.name!="")
-        os << student.name;
-    else
-        os << "null";
+    os << get_str_from_name(student.name);
 
     os << "|" <<std::setw(max_group);
-    if (student.group.type()==typeid(std::nullptr_t)){
-        os << "null";
-    } else if (student.group.type()==typeid(std::string)) {
-        os << std::any_cast<std::string>(student.group);
-    } else if (student.group.type()==typeid(std::size_t)){
-        os << std::to_string(std::any_cast<std::size_t>(student.group));
-    }
+    os << get_str_from_group(student.group);
 
     os << "|" <<std::setw(max_avg);
-    if (student.avg.type()==typeid(std::nullptr_t))
-        os << "null";
-    else if (student.avg.type()==typeid(std::string))
-        os << std::any_cast<std::string>(student.avg);
-    else if (student.avg.type()==typeid(std::double_t))
-        os << std::to_string(std::any_cast<std::double_t>(student.avg));
-    else if (student.avg.type()==typeid(std::size_t))
-        os << std::to_string(std::any_cast<std::size_t>(student.avg));
+    os << get_str_from_avg(student.avg);
 
     os << "|" <<std::setw(max_debt);
-    if (student.debt.type()==typeid(std::nullptr_t)) {
-        os << "null";
-    } else if (student.debt.type()==typeid(std::string)) {
-        os << std::any_cast<std::string>(student.debt);
-    } else {
-        os
-          << std::any_cast< std::vector<std::string> >(student.debt).size()
-          << " items";
-    }
-    os << "|";
+    os << get_str_from_debt(student.debt);
+    os << "|\n";
 }
 
 
@@ -91,14 +106,12 @@ void print(const std::vector<Student>& students, std::ostream& os) {
     unsigned max_name=0; unsigned max_group=0; unsigned max_avg=0; unsigned max_debt=0;
     for (auto const& student : students){
         if (student.name.length()>max_name) max_name=student.name.length();
-        if (std::any_cast<std::string>(student.group).length()>max_group)
-            max_group=std::any_cast<std::string>(student.group).length();
-        if (std::any_cast<std::string>(student.avg).length()>max_avg)
-            max_avg=std::any_cast<std::string>(student.avg).length();
-        if ((student.debt.type() == typeid(std::string) && std::any_cast<std::string>(student.debt).length()>max_debt)
-        || (student.debt.type() != typeid(std::string) && (student.debt.type() != typeid(std::nullptr_t) &&
-        std::to_string(std::any_cast< std::vector<std::string> >(student.debt).size()).length()>max_debt)))
-            max_debt=std::to_string(std::any_cast< std::vector<std::string> >(student.debt).size()).length();
+        if (get_str_from_group(student.group).length()>max_group)
+            max_group=get_str_from_group(student.group).length();
+        if (get_str_from_avg(student.avg).length()>max_avg)
+            max_avg=get_str_from_avg(student.avg).length();
+        if (get_str_from_debt(student.debt).length()>max_debt)
+            max_debt=get_str_from_debt(student.debt).length();
     }
 
     std::string table_string;
@@ -110,16 +123,19 @@ void print(const std::vector<Student>& students, std::ostream& os) {
     table_string+=std::string(max_avg,'-');
     table_string+="|";
     table_string+=std::string(max_debt,'-');
-    table_string+="|";
+    table_string+="|\n";
 
     os << table_string;
     os << "|" << std::left << std::setw(max_name) << "Name" << "|" << std::setw(max_group) << "Group" << "|"
-       << std::setw(max_avg) << "Avg" << "|" << std::setw(max_debt) << "Debt" << "|";
+       << std::setw(max_avg) << "Avg" << "|" << std::setw(max_debt) << "Debt" << "|\n";
 
     //сделать таблицу вывода
     for (auto const& student : students) {
+        os << table_string;
         print(student, os, max_name, max_group, max_avg, max_debt);
     }
+
+    os << table_string;
 }
 
 

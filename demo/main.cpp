@@ -22,9 +22,8 @@ int main() {
         students.push_back(student);
     }
 
-
     print(students, std::cout);
-
+    return 0;
 }
 
 
