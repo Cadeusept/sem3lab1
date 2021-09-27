@@ -92,6 +92,11 @@ std::vector<Student> get_vector_from_json(json data) {
         from_json(item, student);
         students.push_back(student);
     }
+
+    if (students.size()!=.count){
+
+    }
+
     return students;
 }
 
