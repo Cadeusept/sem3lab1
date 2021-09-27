@@ -85,6 +85,16 @@ std::string get_str_from_debt(std::any debt){
         throw std::invalid_argument{"Unexpected 'debt' type"};
 }
 
+std::vector<Student> get_vector_from_json(json data) {
+    std::vector<Student> students;
+    for (auto const &item: data.at("items")) {
+        Student student;
+        from_json(item, student);
+        students.push_back(student);
+    }
+    return students;
+}
+
 void print(const Student& student, std::ostream& os, unsigned max_name, unsigned max_group, unsigned max_avg, unsigned max_debt) {
     os << "|" << std::left <<std::setw(max_name);
     os << get_str_from_name(student.name);
@@ -148,12 +158,7 @@ void parse_json(std::string jsonPath){
     json data;
     file >> data;
 
-    std::vector<Student> students;
-    for (auto const& item : data.at("items")) {
-        Student student;
-        from_json(item, student);
-        students.push_back(student);
-    }
+    std::vector<Student> students=get_vector_from_json(data);
 
     print(students, std::cout);
 }

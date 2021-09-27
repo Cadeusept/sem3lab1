@@ -8,7 +8,7 @@ TEST(Example, EmptyTest) {
 }
 
 TEST(Exceptions, Unable_to_open_1){
-    EXPECT_THROW(parse_json(TEST_FILE1_DIR),std::runtime_error);
+    EXPECT_THROW(parse_json(FILE_DIR"test_file1.json"),std::runtime_error);
 }
 
 TEST(Exceptions, Unexpected_group_type){
@@ -24,13 +24,24 @@ TEST(Exceptions, Unexpected_debt_type){
 }
 
 TEST(Equality, EqualityTest1){
-    std::vector<Student> students;
-    for (auto const& item : data.at("items")) {
-        Student student;
-        from_json(item, student);
-        students.push_back(student);
-    }
-    std::stringstream parsed;
+    std::ifstream file{FILE_DIR"test_file2.json"};
+    json data;
+    file>>data;
 
-    EXPECT_EQ();
+    std::vector<Student> students=get_vector_from_json(data);
+    std::stringstream parsed;
+    print(students,parsed);
+
+    EXPECT_EQ(parsed,
+              "|---------------|---------|--------|-------|"
+              "|Name           |Group    |Avg     |Debt   |"
+              "|---------------|---------|--------|-------|"
+              "|Abobus Amogusov|1        |4.25    |3 items|"
+              "|---------------|---------|--------|-------|"
+              "|Valentin Dyadka|Antihype |5       |Kremlin|"
+              "|---------------|---------|--------|-------|"
+              "|Andrei Zamai   |President|5.000000|null   |"
+              "|---------------|---------|--------|-------|"
+              "|Dirty Monk     |Beast    |1.000000|2 items|"
+              "|---------------|---------|--------|-------|");
 }
