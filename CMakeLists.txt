@@ -53,6 +53,11 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 )
 
 add_definitions("-DFILE_DIR=\"${CMAKE_SOURCE_DIR}/tests/files/students.json\"")
+add_definitions("-DTEST_FILE1_DIR=\"${CMAKE_SOURCE_DIR}/tests/files/test_file1.json\"")
+add_definitions("-DTEST_FILE2_DIR=\"${CMAKE_SOURCE_DIR}/tests/files/test_file2.json\"")
+add_definitions("-DTEST_FILE3_DIR=\"${CMAKE_SOURCE_DIR}/tests/files/test_file3.json\"")
+add_definitions("-DTEST_FILE4_DIR=\"${CMAKE_SOURCE_DIR}/tests/files/test_file4.json\"")
+
 
 target_link_libraries(demo ${PROJECT_NAME})
 

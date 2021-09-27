@@ -58,7 +58,7 @@ std::string get_str_from_group(std::any group){
     else if (group.type()==typeid(std::size_t))
         return std::to_string(std::any_cast<std::size_t>(group));
     else
-        throw "Unexpected 'group' type";
+        throw std::invalid_argument{"Unexpected 'group' type"};
 }
 
 std::string get_str_from_avg(std::any avg){
@@ -71,7 +71,7 @@ std::string get_str_from_avg(std::any avg){
     else if (avg.type()==typeid(std::size_t))
         return std::to_string(std::any_cast<std::size_t>(avg));
     else
-        throw "Unexpected 'avg' type";
+        throw std::invalid_argument{"Unexpected 'avg' type"};
 }
 
 std::string get_str_from_debt(std::any debt){
@@ -82,7 +82,7 @@ std::string get_str_from_debt(std::any debt){
     else if (debt.type()==typeid(std::vector<std::string>))
         return std::to_string(std::any_cast< std::vector<std::string> >(debt).size()) +" items";
     else
-        throw "Unexpected 'debt' type";
+        throw std::invalid_argument{"Unexpected 'debt' type"};
 }
 
 void print(const Student& student, std::ostream& os, unsigned max_name, unsigned max_group, unsigned max_avg, unsigned max_debt) {
@@ -137,6 +137,25 @@ void print(const std::vector<Student>& students, std::ostream& os) {
     }
 
     os << table_string;
+}
+
+void parse_json(std::string jsonPath){
+    std::ifstream file{jsonPath};
+    if (!file) {
+        throw std::runtime_error{"unable to open json: " + jsonPath};
+    }
+
+    json data;
+    file >> data;
+
+    std::vector<Student> students;
+    for (auto const& item : data.at("items")) {
+        Student student;
+        from_json(item, student);
+        students.push_back(student);
+    }
+
+    print(students, std::cout);
 }
 
 

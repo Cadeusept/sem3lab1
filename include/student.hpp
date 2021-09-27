@@ -4,6 +4,8 @@
 #include <any>
 #include <nlohmann/json.hpp>
 #include <iomanip>
+#include <fstream>
+#include <iostream>
 
 using json = nlohmann::json;
 
@@ -35,5 +37,7 @@ std::string get_str_from_debt(std::any debt);
 void print(const Student& student, std::ostream& os, unsigned max_name, unsigned max_group, unsigned max_avg, unsigned max_debt);
 
 void print(const std::vector<Student>& students, std::ostream& os);
+
+void parse_json(std::string jsonPath);
 
 #endif // INCLUDE_HEADER_HPP_
