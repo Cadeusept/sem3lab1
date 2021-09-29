@@ -82,8 +82,8 @@ std::string get_str_from_debt(std::any debt){
     else if (debt.type() == typeid(std::string))
         return std::any_cast<std::string>(debt);
     else if (debt.type() == typeid(std::vector<std::string>))
-        return std::to_string(
-                std::any_cast< std::vector<std::string> >(debt).size()) +" items";
+        return std::to_string(std::any_cast
+                < std::vector<std::string> >(debt).size()) +" items";
     else
         throw std::invalid_argument{"Unexpected 'debt' type"};
 }
@@ -138,13 +138,13 @@ void print(const std::vector<Student>& students, std::ostream& os) {
 
     std::string table_string;
     table_string+="|";
-    table_string+=std::string(max_name,'-');
+    table_string+=std::string(max_name, '-');
     table_string+="|";
-    table_string+=std::string(max_group,'-');
+    table_string+=std::string(max_group, '-');
     table_string+="|";
-    table_string+=std::string(max_avg,'-');
+    table_string+=std::string(max_avg, '-');
     table_string+="|";
-    table_string+=std::string(max_debt,'-');
+    table_string+=std::string(max_debt, '-');
     table_string+="|\n";
 
     os << table_string;
@@ -171,10 +171,7 @@ void parse_json(std::string jsonPath){
     json data;
     file >> data;
 
-    std::vector<Student> students=get_vector_from_json(data);
+    std::vector<Student> students = get_vector_from_json(data);
 
     print(students, std::cout);
 }
-
-
-
