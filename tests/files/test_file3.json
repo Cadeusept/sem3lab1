@@ -1,0 +1,35 @@
+{
+  "items": [
+    {
+      "name": "Abobus Amogusov",
+      "group": "1",
+      "avg": "4.25",
+      "debt": [
+        "C",
+        "History",
+        "Math"
+      ]
+    },
+    {
+      "name": "Valentin Dyadka",
+      "group": "Antihype",
+      "avg": 5,
+      "debt": "Kremlin"
+    },
+    {
+      "name": "Andrei Zamai",
+      "group": "President",
+      "avg": 5.0,
+      "debt": null
+    },
+    {
+      "name": "Dirty Monk",
+      "group": "Beast",
+      "avg": 1.0,
+      "debt": ["2pac", "1dva"]
+    }
+  ],
+  "_meta": {
+    "count": 4
+  }
+}
