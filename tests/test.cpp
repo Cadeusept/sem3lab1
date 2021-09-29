@@ -11,6 +11,10 @@ TEST(Exceptions, Empty_file_path){
     EXPECT_THROW(parse_json(FILE_DIR""),std::runtime_error);
 }
 
+TEST(Exceptions, Wrong_number_of_items){
+    EXPECT_THROW(parse_json(FILE_DIR"test_file2.json"),std::runtime_error);
+}
+
 TEST(Exceptions, Unexpected_group_type){
     EXPECT_THROW(get_str_from_group(3.14),std::invalid_argument);
 }
@@ -24,7 +28,7 @@ TEST(Exceptions, Unexpected_debt_type){
 }
 
 TEST(Equality, EqualityTest1){
-    std::ifstream file{FILE_DIR"test_file2.json"};
+    std::ifstream file{FILE_DIR"test_file3.json"};
     json data;
     file>>data;
 

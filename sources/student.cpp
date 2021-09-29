@@ -93,14 +93,15 @@ std::vector<Student> get_vector_from_json(json data) {
         students.push_back(student);
     }
 
-    if (students.size()!=.count){
-
+    if (students.size()!=((data.at("_meta")).at("count")).get<std::size_t>()){
+        throw std::runtime_error("Wrong number of items");
     }
 
     return students;
 }
 
-void print(const Student& student, std::ostream& os, unsigned max_name, unsigned max_group, unsigned max_avg, unsigned max_debt) {
+void print(const Student& student, std::ostream& os,
+           unsigned max_name, unsigned max_group, unsigned max_avg, unsigned max_debt) {
     os << "|" << std::left <<std::setw(max_name);
     os << get_str_from_name(student.name);
 
