@@ -1,10 +1,13 @@
-#ifndef INCLUDE_HEADER_HPP_
-#define INCLUDE_HEADER_HPP_
+//Copyright 2021 Matthew abobus1488822@yandex,ru
+
+#ifndef INCLUDE_STUDENT_HPP_
+#define INCLUDE_STUDENT_HPP_
 #include <string>
 #include <any>
 #include <nlohmann/json.hpp>
 #include <iomanip>
 #include <fstream>
+#include <vector>
 #include <iostream>
 
 using json = nlohmann::json;
@@ -36,10 +39,12 @@ std::string get_str_from_debt(std::any debt);
 
 std::vector<Student> get_vector_from_json(json data);
 
-void print(const Student& student, std::ostream& os, unsigned max_name, unsigned max_group, unsigned max_avg, unsigned max_debt);
+void print(const Student& student, std::ostream& os,
+           unsigned max_name, unsigned max_group,
+           unsigned max_avg, unsigned max_debt);
 
 void print(const std::vector<Student>& students, std::ostream& os);
 
 void parse_json(std::string jsonPath);
 
-#endif // INCLUDE_HEADER_HPP_
+#endif // INCLUDE_STUDENT_HPP_
