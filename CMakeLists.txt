@@ -29,19 +29,31 @@ string(APPEND CMAKE_CXX_FLAGS " -Wshadow -Wnon-virtual-dtor")
 hunter_add_package(GTest)
 find_package(GTest CONFIG REQUIRED)
 
+hunter_add_package(nlohmann_json)
+find_package(nlohmann_json CONFIG REQUIRED)
+
+
+
 add_library(${PROJECT_NAME} STATIC
   # enum your files and delete this comment
-  ${CMAKE_CURRENT_SOURCE_DIR}/sources/source.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/sources/student.cpp
 )
 
+
 add_executable(demo
-  ${CMAKE_CURRENT_SOURCE_DIR}/demo/main.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/demo/main.cpp ${CMAKE_CURRENT_SOURCE_DIR}/sources/student.cpp
 )
+
+target_link_libraries(${PROJECT_NAME} nlohmann_json::nlohmann_json)
+
 
 target_include_directories(${PROJECT_NAME} PUBLIC
   "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
   "$<INSTALL_INTERFACE:include>"
 )
+
+add_definitions("-DFILE_DIR=\"${CMAKE_SOURCE_DIR}/tests/files/\"")
+
 
 target_link_libraries(demo ${PROJECT_NAME})
 
@@ -53,6 +65,14 @@ if(BUILD_TESTS)
   target_link_libraries(tests ${PROJECT_NAME} GTest::gtest_main)
   enable_testing()
   add_test(NAME unit_tests COMMAND tests)
+endif()
+
+if(BUILD_COVERAGE)
+  set(ENABLE_COVERAGE ON CACHE BOOL /tests/test.cpp
+  )
+  target_link_libraries(tests ${PROJECT_NAME} GTest::gtest_main)
+  enable_testing()
+  #add_test(NAME unit_tests COMMAND tests)
 endif()
 
 if(BUILD_COVERAGE)
